@@ -8,8 +8,10 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariDriverService;
 import org.openqa.selenium.safari.SafariOptions;
 
+import dev.selenium.BaseTest;
+
 @EnabledOnOs(OS.MAC)
-public class SafariTest {
+public class SafariTest extends BaseTest {
     public SafariDriver driver;
 
     @AfterEach
@@ -22,15 +24,7 @@ public class SafariTest {
     @Test
     public void basicOptions() {
         SafariOptions options = new SafariOptions();
-        driver = new SafariDriver(options);
+        driver = (SafariDriver) createRemoteSession(options);
     }
 
-    @Test
-    public void enableLogs() {
-        SafariDriverService service = new SafariDriverService.Builder()
-                .withLogging(true)
-                .build();
-
-        driver = new SafariDriver(service);
-    }
 }

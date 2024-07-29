@@ -10,6 +10,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -79,7 +80,7 @@ public class WaitsTest extends BaseTest {
     WebElement revealed = driver.findElement(By.id("revealed"));
     driver.findElement(By.id("reveal")).click();
 
-    Wait<WebDriver> wait =
+    Wait<RemoteWebDriver> wait =
         new FluentWait<>(driver)
             .withTimeout(Duration.ofSeconds(2))
             .pollingEvery(Duration.ofMillis(300))

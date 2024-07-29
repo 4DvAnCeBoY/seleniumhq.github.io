@@ -13,7 +13,7 @@ public class OptionsTest extends BaseTest {
   public void setPageLoadStrategyNormal() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-    WebDriver driver = new ChromeDriver(chromeOptions);
+    driver = createRemoteSession(chromeOptions);
     try {
       // Navigate to Url
       driver.get("https://selenium.dev");
@@ -26,7 +26,7 @@ public class OptionsTest extends BaseTest {
   public void setPageLoadStrategyEager() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
-    WebDriver driver = new ChromeDriver(chromeOptions);
+    WebDriver driver = createRemoteSession(chromeOptions);
     try {
       // Navigate to Url
       driver.get("https://selenium.dev");
@@ -39,7 +39,7 @@ public class OptionsTest extends BaseTest {
   public void setPageLoadStrategyNone() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
-    WebDriver driver = new ChromeDriver(chromeOptions);
+    WebDriver driver = createRemoteSession(chromeOptions);
     try {
       // Navigate to Url
       driver.get("https://selenium.dev");
@@ -52,7 +52,7 @@ public class OptionsTest extends BaseTest {
   public void setAcceptInsecureCerts() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.setAcceptInsecureCerts(true);
-    WebDriver driver = new ChromeDriver(chromeOptions);
+    WebDriver driver = createRemoteSession(chromeOptions);
     try {
       // Navigate to Url
       driver.get("https://selenium.dev");

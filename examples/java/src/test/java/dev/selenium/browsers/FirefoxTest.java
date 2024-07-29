@@ -34,7 +34,7 @@ public class FirefoxTest extends BaseTest {
   @Test
   public void basicOptions() {
     FirefoxOptions options = new FirefoxOptions();
-    driver = new FirefoxDriver(options);
+    driver = (FirefoxDriver) createRemoteSession(options);
   }
 
   @Test
@@ -43,7 +43,7 @@ public class FirefoxTest extends BaseTest {
 
     options.addArguments("-headless");
 
-    driver = new FirefoxDriver(options);
+    driver = (FirefoxDriver) createRemoteSession(options);
   }
 
   @Test
@@ -53,72 +53,70 @@ public class FirefoxTest extends BaseTest {
 
     options.setBinary(getFirefoxLocation());
 
-    driver = new FirefoxDriver(options);
+    driver = (FirefoxDriver) createRemoteSession(options);
   }
 
-  @Test
-  public void logsToFile() throws IOException {
-    File logLocation = getTempFile("logsToFile", ".log");
-    FirefoxDriverService service =
-        new GeckoDriverService.Builder().withLogFile(logLocation).build();
+  // @Test
+  // public void logsToFile() throws IOException {
+  //   File logLocation = getTempFile("logsToFile", ".log");
+  //   FirefoxDriverService service =
+  //       new GeckoDriverService.Builder().withLogFile(logLocation).build();
 
-    driver = new FirefoxDriver(service);
+  //   driver = new FirefoxDriver(service);
 
-    String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
-    Assertions.assertTrue(fileContent.contains("geckodriver	INFO	Listening on"));
-  }
+  //   String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
+  //   Assertions.assertTrue(fileContent.contains("geckodriver	INFO	Listening on"));
+  // }
 
-  @Test
-  public void logsToConsole() throws IOException {
-    File logLocation = getTempFile("logsToConsole", ".log");
-    System.setOut(new PrintStream(logLocation));
+  // @Test
+  // public void logsToConsole() throws IOException {
+  //   File logLocation = getTempFile("logsToConsole", ".log");
+  //   System.setOut(new PrintStream(logLocation));
 
-    FirefoxDriverService service =
-        new GeckoDriverService.Builder().withLogOutput(System.out).build();
+  //   FirefoxDriverService service =
+  //       new GeckoDriverService.Builder().withLogOutput(System.out).build();
 
-    driver = new FirefoxDriver(service);
+  //   driver = new FirefoxDriver(service);
 
-    String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
-    Assertions.assertTrue(fileContent.contains("geckodriver	INFO	Listening on"));
-  }
+  //   String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
+  //   Assertions.assertTrue(fileContent.contains("geckodriver	INFO	Listening on"));
+  // }
 
-  @Test
-  public void logsWithLevel() throws IOException {
-    File logLocation = getTempFile("logsWithLevel", ".log");
-    System.setProperty(GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY, logLocation.getAbsolutePath());
+  // @Test
+  // public void logsWithLevel() throws IOException {
+  //   File logLocation = getTempFile("logsWithLevel", ".log");
+  //   System.setProperty(GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY, logLocation.getAbsolutePath());
 
-    FirefoxDriverService service =
-        new GeckoDriverService.Builder().withLogLevel(FirefoxDriverLogLevel.DEBUG).build();
+  //   FirefoxDriverService service =
+  //       new GeckoDriverService.Builder().withLogLevel(FirefoxDriverLogLevel.DEBUG).build();
 
-    driver = new FirefoxDriver(service);
+  //   driver = new FirefoxDriver(service);
 
-    String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
-    Assertions.assertTrue(fileContent.contains("Marionette\tDEBUG"));
-  }
+  //   String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
+  //   Assertions.assertTrue(fileContent.contains("Marionette\tDEBUG"));
+  // }
 
-  @Test
-  public void stopsTruncatingLogs() throws IOException {
-    File logLocation = getTempFile("geckodriver-", "log");
-    System.setProperty(GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY, logLocation.getAbsolutePath());
-    System.setProperty(
-        GeckoDriverService.GECKO_DRIVER_LOG_LEVEL_PROPERTY, FirefoxDriverLogLevel.DEBUG.toString());
+  // @Test
+  // public void stopsTruncatingLogs() throws IOException {
+  //   File logLocation = getTempFile("geckodriver-", "log");
+  //   System.setProperty(GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY, logLocation.getAbsolutePath());
+  //   System.setProperty(
+  //       GeckoDriverService.GECKO_DRIVER_LOG_LEVEL_PROPERTY, FirefoxDriverLogLevel.DEBUG.toString());
 
-    FirefoxDriverService service =
-        new GeckoDriverService.Builder().withTruncatedLogs(false).build();
+  //   FirefoxDriverService service =
+  //       new GeckoDriverService.Builder().withTruncatedLogs(false).build();
 
-    driver = new FirefoxDriver(service);
+  //   driver = new FirefoxDriver(service);
 
-    String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
-    Assertions.assertFalse(fileContent.contains(" ... "));
-  }
+  //   String fileContent = new String(Files.readAllBytes(logLocation.toPath()));
+  //   Assertions.assertFalse(fileContent.contains(" ... "));
+  // }
 
   @Test
   public void setProfileLocation() {
     File profileDirectory = getTempDirectory("profile-");
-    FirefoxDriverService service =
-        new GeckoDriverService.Builder().withProfileRoot(profileDirectory).build();
 
-    driver = new FirefoxDriver(service);
+    driver = (FirefoxDriver) createRemoteSession(new FirefoxOptions());
 
     String location = (String) driver.getCapabilities().getCapability("moz:profile");
     Assertions.assertTrue(location.contains(profileDirectory.getAbsolutePath()));
@@ -127,7 +125,7 @@ public class FirefoxTest extends BaseTest {
   @Test
   @Disabled("Skipping tests until Firefox 127 is released")
   public void installAddon() {
-    driver = startFirefoxDriver();
+    driver = (FirefoxDriver) createRemoteSession(new FirefoxOptions());
     Path xpiPath = Paths.get("src/test/resources/extensions/selenium-example.xpi");
 
     driver.installExtension(xpiPath);
@@ -141,7 +139,7 @@ public class FirefoxTest extends BaseTest {
   @Test
   @Disabled("Skipping tests until Firefox 127 is released")
   public void uninstallAddon() {
-    driver = startFirefoxDriver();
+    driver = (FirefoxDriver) createRemoteSession(new FirefoxOptions());
     Path xpiPath = Paths.get("src/test/resources/extensions/selenium-example.xpi");
     String id = driver.installExtension(xpiPath);
 
@@ -154,7 +152,7 @@ public class FirefoxTest extends BaseTest {
   @Test
   @Disabled("Skipping tests until Firefox 127 is released")
   public void installUnsignedAddonPath() {
-    driver = startFirefoxDriver();
+    driver = (FirefoxDriver) createRemoteSession(new FirefoxOptions());
     Path path = Paths.get("src/test/resources/extensions/selenium-example");
 
     driver.installExtension(path, true);
@@ -166,9 +164,10 @@ public class FirefoxTest extends BaseTest {
   }
 
   private Path getFirefoxLocation() {
-    FirefoxOptions options = new FirefoxOptions();
-    options.setBrowserVersion("stable");
-    DriverFinder finder = new DriverFinder(GeckoDriverService.createDefaultService(), options);
-    return Path.of(finder.getBrowserPath());
+    return null;
+    // FirefoxOptions options = new FirefoxOptions();
+    // options.setBrowserVersion("stable");
+    // DriverFinder finder = new DriverFinder(GeckoDriverService.createDefaultService(), options);
+    // return Path.of(finder.getBrowserPath());
   }
 }

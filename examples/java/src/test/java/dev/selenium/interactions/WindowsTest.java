@@ -2,16 +2,20 @@ package dev.selenium.interactions;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import dev.selenium.BaseTest;
+
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WindowsTest {
+public class WindowsTest extends BaseTest {
 
     @Test
     public void windowsExampleCode() {
         
-    	WebDriver driver = new ChromeDriver();
+    	WebDriver driver = createRemoteSession(new ChromeOptions());
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
         // Navigate to Url
         driver.get("https://www.selenium.dev/selenium/web/window_switching_tests/page_with_frame.html");

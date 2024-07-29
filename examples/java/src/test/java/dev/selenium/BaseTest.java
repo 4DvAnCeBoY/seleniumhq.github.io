@@ -7,12 +7,14 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,7 +25,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseTest {
-  protected WebDriver driver;
+  protected RemoteWebDriver driver;
   protected WebDriverWait wait;
   protected File driverPath;
   protected File browserPath;
@@ -37,7 +39,10 @@ public class BaseTest {
     }
   }
   
-  public WebDriver createRemoteSession (Object options) {
+  public static RemoteWebDriver createRemoteSession (MutableCapabilities options) {
+    HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+           ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
+    ((MutableCapabilities) options).setCapability("LT:Options", ltOptions);
   return new RemoteWebDriver(gridUrl,(Capabilities) options);
   }
 
@@ -46,25 +51,43 @@ public class BaseTest {
     return wait.until(d -> driver.findElement(by));
   }
 
-  protected FirefoxDriver startFirefoxDriver() {
-    return (FirefoxDriver) createRemoteSession(new FirefoxOptions());
+  protected RemoteWebDriver startFirefoxDriver() {
+    FirefoxOptions options = new FirefoxOptions();
+    HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+         ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
+    options.setCapability("LT:Options", ltOptions);
+    return createRemoteSession(options);
   }
 
-  protected FirefoxDriver startFirefoxDriver(FirefoxOptions options) {
+  protected RemoteWebDriver startFirefoxDriver(FirefoxOptions options) {
     options.setImplicitWaitTimeout(Duration.ofSeconds(1));
+    HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+           ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
+    options.setCapability("LT:Options", ltOptions);
     driver = createRemoteSession(options);
-    return (FirefoxDriver) driver;
+    return  driver;
   }
 
-  protected ChromeDriver startChromeDriver() {
+  protected RemoteWebDriver startChromeDriver() {
     ChromeOptions options = new ChromeOptions();
     options.setImplicitWaitTimeout(Duration.ofSeconds(1));
-    return (ChromeDriver) createRemoteSession(options);
+    HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+      ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
+    options.setCapability("LT:Options", ltOptions);
+    return createRemoteSession(options);
   }
 
-  protected ChromeDriver startChromeDriver(ChromeOptions options) {
-    driver = createRemoteSession(options);
-    return (ChromeDriver) driver;
+  protected RemoteWebDriver startChromeDriver(ChromeOptions options) {
+    options.setImplicitWaitTimeout(Duration.ofSeconds(1));
+    HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+           ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
+    options.setCapability("LT:Options", ltOptions);
+  //  StackTraceElement[] stackelement = Thread.currentThread().getStackTrace();
+  //  for (StackTraceElement stackTraceElement : stackelement) {
+  //   System.out.println(stackTraceElement.getClassName() + " -> " + stackTraceElement.getMethodName());
+  //  }
+
+    return createRemoteSession(options);
   }
 
   protected File getTempDirectory(String prefix) {

@@ -3,13 +3,17 @@ package dev.selenium.interactions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import dev.selenium.BaseTest;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NavigationTest {
+public class NavigationTest extends BaseTest {
     @Test
     public void navigateBrowser() {
         
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = createRemoteSession(new ChromeOptions());
       
         //Convenient
         driver.get("https://selenium.dev");

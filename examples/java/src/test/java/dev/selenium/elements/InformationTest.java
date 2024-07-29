@@ -6,15 +6,19 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import dev.selenium.BaseTest;
+
 import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InformationTest {
+public class InformationTest extends BaseTest {
 
     @Test
     public void informationWithElements() {
     	
-    	 WebDriver driver = new ChromeDriver();
+    	 WebDriver driver = createRemoteSession(new ChromeOptions());
          driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
          // Navigate to Url
          driver.get("https://www.selenium.dev/selenium/web/inputs.html");

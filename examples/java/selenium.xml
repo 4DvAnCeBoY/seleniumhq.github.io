@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-07-29T11:04:43.418267Z</date>
-  <millis>1722251083418</millis>
-  <nanos>267000</nanos>
+  <date>2024-07-29T12:48:42.676056Z</date>
+  <millis>1722257322676</millis>
+  <nanos>56000</nanos>
   <sequence>1</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>WARNING</level>
@@ -14,9 +14,9 @@
   <message>this is a warning</message>
 </record>
 <record>
-  <date>2024-07-29T11:04:43.425756Z</date>
-  <millis>1722251083425</millis>
-  <nanos>756000</nanos>
+  <date>2024-07-29T12:48:42.682811Z</date>
+  <millis>1722257322682</millis>
+  <nanos>811000</nanos>
   <sequence>2</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>this is useful information</message>
 </record>
 <record>
-  <date>2024-07-29T11:04:43.426261Z</date>
-  <millis>1722251083426</millis>
-  <nanos>261000</nanos>
+  <date>2024-07-29T12:48:42.683295Z</date>
+  <millis>1722257322683</millis>
+  <nanos>295000</nanos>
   <sequence>3</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>FINE</level>
@@ -37,3 +37,4 @@
   <thread>14</thread>
   <message>this is detailed debug information</message>
 </record>
+</log>

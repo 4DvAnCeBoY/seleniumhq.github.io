@@ -95,7 +95,7 @@ public class RemoteWebDriverTest extends BaseTest {
     ChromeOptions options = new ChromeOptions();
     driver = new RemoteWebDriver(gridUrl, options);
 
-    driver = new Augmenter().augment(driver);
+    driver = (RemoteWebDriver) new Augmenter().augment(driver);
 
     Assertions.assertTrue(driver instanceof HasCasting);
   }
@@ -103,7 +103,7 @@ public class RemoteWebDriverTest extends BaseTest {
   @Test
   public void remoteWebDriverBuilder() {
     driver =
-        RemoteWebDriver.builder()
+        (RemoteWebDriver) RemoteWebDriver.builder()
             .address(gridUrl)
             .oneOf(new ChromeOptions())
             .setCapability("ext:options", Map.of("key", "value"))
