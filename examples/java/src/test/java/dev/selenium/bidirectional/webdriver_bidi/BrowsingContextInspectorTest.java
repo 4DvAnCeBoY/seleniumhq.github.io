@@ -25,7 +25,7 @@ class BrowsingContextInspectorTest extends BaseTest {
     public void setup() {
         FirefoxOptions options = new FirefoxOptions();
         options.setCapability("webSocketUrl", true);
-        driver = new FirefoxDriver(options);
+        driver = createRemoteSession(options);
     }
 
     @Test

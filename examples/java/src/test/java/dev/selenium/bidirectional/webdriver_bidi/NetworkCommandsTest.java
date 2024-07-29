@@ -26,7 +26,7 @@ class NetworkCommandsTest extends BaseTest {
     public void setup() {
         FirefoxOptions options = new FirefoxOptions();
         options.setCapability("webSocketUrl", true);
-        driver = new FirefoxDriver(options);
+        driver = createRemoteSession(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 

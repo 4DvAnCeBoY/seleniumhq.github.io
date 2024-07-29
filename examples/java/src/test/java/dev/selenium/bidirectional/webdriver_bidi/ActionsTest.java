@@ -26,7 +26,7 @@ class ActionsTest extends BaseTest {
     public void setup() {
         FirefoxOptions options = new FirefoxOptions();
         options.setCapability("webSocketUrl", true);
-        driver = new FirefoxDriver(options);
+        driver = createRemoteSession(options);
         windowHandle = driver.getWindowHandle();
         input = new Input(driver);
     }

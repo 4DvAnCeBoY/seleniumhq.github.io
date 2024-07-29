@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.HasCdp;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class CdpTest extends BaseTest {
   @BeforeEach
   public void createSession() {
-    driver = new ChromeDriver();
+    driver = createRemoteSession(new ChromeOptions());
   }
 
   @Test

@@ -2,6 +2,7 @@ package dev.selenium;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.time.Duration;
@@ -11,14 +12,14 @@ import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.grid.Main;
-import org.openqa.selenium.net.PortProber;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseTest {
@@ -26,6 +27,19 @@ public class BaseTest {
   protected WebDriverWait wait;
   protected File driverPath;
   protected File browserPath;
+  public static URL gridUrl;
+
+  public BaseTest() {
+     try {
+      gridUrl = new URL(System.getenv("gridUrl"));
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public WebDriver createRemoteSession (Object options) {
+  return new RemoteWebDriver(gridUrl,(Capabilities) options);
+  }
 
   public WebElement getLocatedElement(WebDriver driver, By by) {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -33,23 +47,23 @@ public class BaseTest {
   }
 
   protected FirefoxDriver startFirefoxDriver() {
-    return startFirefoxDriver(new FirefoxOptions());
+    return (FirefoxDriver) createRemoteSession(new FirefoxOptions());
   }
 
   protected FirefoxDriver startFirefoxDriver(FirefoxOptions options) {
     options.setImplicitWaitTimeout(Duration.ofSeconds(1));
-    driver = new FirefoxDriver(options);
+    driver = createRemoteSession(options);
     return (FirefoxDriver) driver;
   }
 
   protected ChromeDriver startChromeDriver() {
     ChromeOptions options = new ChromeOptions();
     options.setImplicitWaitTimeout(Duration.ofSeconds(1));
-    return startChromeDriver(options);
+    return (ChromeDriver) createRemoteSession(options);
   }
 
   protected ChromeDriver startChromeDriver(ChromeOptions options) {
-    driver = new ChromeDriver(options);
+    driver = createRemoteSession(options);
     return (ChromeDriver) driver;
   }
 
@@ -78,24 +92,25 @@ public class BaseTest {
   }
 
   protected URL startStandaloneGrid() {
-    int port = PortProber.findFreePort();
-    try {
-      Main.main(
-          new String[] {
-            "standalone",
-            "--port",
-            String.valueOf(port),
-            "--selenium-manager",
-            "true",
-            "--enable-managed-downloads",
-            "true",
-            "--log-level",
-            "WARNING"
-          });
-      return new URL("http://localhost:" + port);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    return gridUrl;
+    // int port = PortProber.findFreePort();
+    // try {
+    //   Main.main(
+    //       new String[] {
+    //           "standalone",
+    //           "--port",
+    //           String.valueOf(port),
+    //           "--selenium-manager",
+    //           "true",
+    //           "--enable-managed-downloads",
+    //           "true",
+    //           "--log-level",
+    //           "WARNING"
+    //       });
+    //   return new URL("http://localhost:" + port);
+    // } catch (Exception e) {
+    //   throw new RuntimeException(e);
+    // }
   }
 
   protected void enableLogging() {

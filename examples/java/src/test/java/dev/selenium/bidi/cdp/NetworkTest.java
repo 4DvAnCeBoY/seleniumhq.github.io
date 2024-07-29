@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.NetworkInterceptor;
@@ -32,7 +33,7 @@ public class NetworkTest extends BaseTest {
 
   @BeforeEach
   public void createSession() {
-    driver = new ChromeDriver();
+    driver = createRemoteSession(new ChromeOptions());
     wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   }
 

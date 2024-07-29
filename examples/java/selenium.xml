@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-07-29T11:04:43.418267Z</date>
+  <millis>1722251083418</millis>
+  <nanos>267000</nanos>
+  <sequence>1</sequence>
+  <logger>dev.selenium.troubleshooting.LoggingTest</logger>
+  <level>WARNING</level>
+  <class>dev.selenium.troubleshooting.LoggingTest</class>
+  <method>logging</method>
+  <thread>14</thread>
+  <message>this is a warning</message>
+</record>
+<record>
+  <date>2024-07-29T11:04:43.425756Z</date>
+  <millis>1722251083425</millis>
+  <nanos>756000</nanos>
+  <sequence>2</sequence>
+  <logger>dev.selenium.troubleshooting.LoggingTest</logger>
+  <level>INFO</level>
+  <class>dev.selenium.troubleshooting.LoggingTest</class>
+  <method>logging</method>
+  <thread>14</thread>
+  <message>this is useful information</message>
+</record>
+<record>
+  <date>2024-07-29T11:04:43.426261Z</date>
+  <millis>1722251083426</millis>
+  <nanos>261000</nanos>
+  <sequence>3</sequence>
+  <logger>dev.selenium.troubleshooting.LoggingTest</logger>
+  <level>FINE</level>
+  <class>dev.selenium.troubleshooting.LoggingTest</class>
+  <method>logging</method>
+  <thread>14</thread>
+  <message>this is detailed debug information</message>
+</record>

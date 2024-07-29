@@ -3,13 +3,25 @@ package dev.selenium.getting_started;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
+
 public class FirstScript {
+    static URL gridUrl;
     public static void main(String[] args) {
-        WebDriver driver = new ChromeDriver();
+      
+        try {
+          gridUrl = new URL(System.getenv("gridUrl"));
+          } catch (MalformedURLException e) {
+            e.printStackTrace();
+          }
+
+        WebDriver driver = new RemoteWebDriver(gridUrl, new ChromeOptions());
 
         driver.get("https://www.selenium.dev/selenium/web/web-form.html");
 
