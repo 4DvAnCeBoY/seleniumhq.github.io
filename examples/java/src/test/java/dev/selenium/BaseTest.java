@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
@@ -39,11 +40,12 @@ public class BaseTest {
     }
   }
   
-  public static RemoteWebDriver createRemoteSession (MutableCapabilities options) {
+  public  RemoteWebDriver createRemoteSession (MutableCapabilities options) {
     HashMap<String, Object> ltOptions = new HashMap<String, Object>();
            ltOptions.put("name",Thread.currentThread().getStackTrace()[3].getClassName() );
     ((MutableCapabilities) options).setCapability("LT:Options", ltOptions);
-  return new RemoteWebDriver(gridUrl,(Capabilities) options);
+    driver = new RemoteWebDriver(gridUrl,(Capabilities) options);
+  return driver;
   }
 
   public WebElement getLocatedElement(WebDriver driver, By by) {
@@ -145,8 +147,10 @@ public class BaseTest {
   }
 
   @AfterEach
-  public void quit() {
+  public void quit(TestInfo testInfo) {
     if (driver != null) {
+      driver.executeScript("lambda-name="+testInfo.getTestClass() +"-> "+testInfo.getDisplayName(),"");
+      // driver.executeScript("lambda-status="+testInfo.getTags()., null);
       driver.quit();
     }
   }

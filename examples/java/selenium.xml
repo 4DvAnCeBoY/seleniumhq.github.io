@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-07-29T12:48:42.676056Z</date>
-  <millis>1722257322676</millis>
-  <nanos>56000</nanos>
+  <date>2024-07-29T13:47:40.563478Z</date>
+  <millis>1722260860563</millis>
+  <nanos>478000</nanos>
   <sequence>1</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>WARNING</level>
@@ -14,9 +14,9 @@
   <message>this is a warning</message>
 </record>
 <record>
-  <date>2024-07-29T12:48:42.682811Z</date>
-  <millis>1722257322682</millis>
-  <nanos>811000</nanos>
+  <date>2024-07-29T13:47:40.569525Z</date>
+  <millis>1722260860569</millis>
+  <nanos>525000</nanos>
   <sequence>2</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>this is useful information</message>
 </record>
 <record>
-  <date>2024-07-29T12:48:42.683295Z</date>
-  <millis>1722257322683</millis>
-  <nanos>295000</nanos>
+  <date>2024-07-29T13:47:40.570014Z</date>
+  <millis>1722260860570</millis>
+  <nanos>14000</nanos>
   <sequence>3</sequence>
   <logger>dev.selenium.troubleshooting.LoggingTest</logger>
   <level>FINE</level>
@@ -37,4 +37,39 @@
   <thread>14</thread>
   <message>this is detailed debug information</message>
 </record>
-</log>
+<record>
+  <date>2024-07-29T13:51:04.715249Z</date>
+  <millis>1722261064715</millis>
+  <nanos>249000</nanos>
+  <sequence>588</sequence>
+  <logger>org.openqa.selenium.devtools.CdpEndpointFinder</logger>
+  <level>WARNING</level>
+  <class>org.openqa.selenium.devtools.CdpEndpointFinder</class>
+  <method>getCdpEndPoint</method>
+  <thread>14</thread>
+  <message>Unable to connect to determine websocket url: java.net.ConnectException: Connection refused</message>
+</record>
+<record>
+  <date>2024-07-29T13:51:14.140879Z</date>
+  <millis>1722261074140</millis>
+  <nanos>879000</nanos>
+  <sequence>601</sequence>
+  <logger>org.openqa.selenium.devtools.CdpEndpointFinder</logger>
+  <level>WARNING</level>
+  <class>org.openqa.selenium.devtools.CdpEndpointFinder</class>
+  <method>getCdpEndPoint</method>
+  <thread>14</thread>
+  <message>Unable to connect to determine websocket url: java.net.ConnectException: Connection refused</message>
+</record>
+<record>
+  <date>2024-07-29T13:52:09.233251Z</date>
+  <millis>1722261129233</millis>
+  <nanos>251000</nanos>
+  <sequence>684</sequence>
+  <logger>org.openqa.selenium.manager.SeleniumManager</logger>
+  <level>WARNING</level>
+  <class>org.openqa.selenium.manager.SeleniumManager</class>
+  <method>lambda$runCommand$1</method>
+  <thread>14</thread>
+  <message>Unable to discover MicrosoftEdge stable in online repository</message>
+</record>
